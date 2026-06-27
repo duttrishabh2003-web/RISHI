@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fizz Cola — Refresh the Moment</title>
+<meta name="description" content="Fizz Cola. Premium, crisp, ice-cold refreshment. Refresh the moment." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="wordmark">FIZZ<span>COLA</span></div>
+    <nav class="nav-links">
+      <a href="#flavor">Flavor</a>
+      <a href="#concepts">Campaign</a>
+      <a href="#join">Get Early Access</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div id="can-canvas" class="can-canvas" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <p class="eyebrow">Premium &middot; Crisp &middot; Ice&#8209;Cold</p>
+    <h1 class="hero-title">Refresh<br>the&nbsp;Moment</h1>
+    <p class="hero-sub">Fizz Cola is carbonation, slowed down. Built for the golden-hour pour, the first sip, the pause that makes the rest of the day make sense.</p>
+    <a href="#join" class="btn-primary">Get Early Access</a>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span></span>
+    <p>Scroll to pour</p>
+  </div>
+</section>
+
+<!-- POUR / FLAVOR SECTION -->
+<section class="flavor" id="flavor">
+  <div class="flavor-grid">
+    <div class="flavor-text">
+      <p class="eyebrow">The Pour</p>
+      <h2>Cold enough to fog the can.<br>Crisp enough to notice.</h2>
+      <p class="flavor-copy">No artificial citrus haze, no syrupy aftertaste — just bright carbonation and a clean finish. Fizz Cola is made for the moment right after you crack it open, when the condensation is still running down your hand.</p>
+    </div>
+    <div class="flavor-stats">
+      <div class="stat">
+        <span class="stat-num">0g</span>
+        <span class="stat-label">Artificial sweeteners</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4&deg;C</span>
+        <span class="stat-label">Ideal serve temp</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">12</span>
+        <span class="stat-label">Campaign concepts in testing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPAIGN CONCEPTS GALLERY -->
+<section class="concepts" id="concepts">
+  <div class="concepts-head">
+    <p class="eyebrow">Campaign Lab</p>
+    <h2>12 ways to pour a moment</h2>
+    <p class="concepts-sub">Each concept is a different setting for the same feeling: cold, bright, unhurried. Drag to explore.</p>
+  </div>
+  <div class="concepts-track" id="concepts-track">
+    <!-- cards injected by app.js -->
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE -->
+<section class="join" id="join">
+  <div class="join-inner">
+    <p class="eyebrow">Early Access</p>
+    <h2>Be first to crack one open.</h2>
+    <p class="join-sub">We're testing Fizz Cola in select markets. Leave your email and we'll let you know when it lands near you.</p>
+
+    <form id="signup-form" class="signup-form" autocomplete="off">
+      <input type="email" id="email-input" name="email" placeholder="you@example.com" required aria-label="Email address" />
+      <button type="submit" id="signup-btn">Notify Me</button>
+    </form>
+    <p class="form-status" id="form-status" role="status"></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="wordmark small">FIZZ<span>COLA</span></div>
+    <p>&copy; 2026 Fizz Cola. A fictional concept brand built for campaign testing purposes.</p>
+  </div>
+</footer>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+<script src="env.js"></script>
+<script type="module" src="can3d.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
