@@ -1,4 +1,4 @@
 window.__FIZZ_ENV__ = {
-  SUPABASE_URL: "https://ujnngledibsmvcfjinbv.supabase.co",
-  SUPABASE_ANON_KEY: "sb_publishable_AJr8q8O3x4J77SQoyXZqIg_fTOXn3_N",
+  SUPABASE_URL: "https://srnqherubclodzzsnegl.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_qTpo2CPwS4MOiUi0-CDlaA_6Frkwxwo",
 };

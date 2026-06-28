@@ -1,34 +1,31 @@
-// ---------- Campaign concepts data ----------
-const concepts = [
-  { title: "Golden Hour Pour", desc: "Slow-motion pour over ice at sunset, condensation dripping down the glass." },
-  { title: "First Sip", desc: "Close-up on a face at the first sip — eyes closing, shoulders dropping." },
-  { title: "Rooftop Refresh", desc: "City skyline at dusk, a sweating can on the ledge, the day finally exhaling." },
-  { title: "Minimalist Studio", desc: "Clean white studio, the can rotating slowly under a single hard light." },
-  { title: "Beach Cooler", desc: "A cooler lid lifts on the sand — ice, cans, and the ocean just beyond." },
-  { title: "Office Break", desc: "A two-minute pause in a quiet break room, can sweating on the counter." },
-  { title: "Night Drive", desc: "Convertible at dusk, the can in the cupholder, neon sliding across the glass." },
-  { title: "Picnic Table", desc: "Outdoor brunch, soft natural light, the can beside fresh-cut citrus." },
-  { title: "Gym Recovery", desc: "Post-workout stillness — the can against a bag, condensation beading." },
-  { title: "Kitchen Counter", desc: "Marble counter, a citrus garnish, morning light through the window." },
-  { title: "Festival Crowd", desc: "A hand lifts the can at golden hour, the crowd blurred behind it." },
-  { title: "Macro Bubbles", desc: "Extreme close-up on rising carbonation — slow, tactile, almost meditative." },
-];
+import { colorways } from "./laptop3d.js";
 
-function renderConcepts() {
-  const track = document.getElementById("concepts-track");
-  if (!track) return;
+function renderSwatches() {
+  const container = document.getElementById("swatches");
+  if (!container) return;
 
-  const html = concepts.map((c, i) => `
-    <article class="concept-card">
-      <p class="concept-index">${String(i + 1).padStart(2, "0")} / 12</p>
-      <h3 class="concept-title">${c.title}</h3>
-      <p class="concept-desc">${c.desc}</p>
-    </article>
+  container.innerHTML = colorways.map((c, i) => `
+    <button class="swatch ${i === 0 ? "active" : ""}" data-index="${i}" type="button">
+      <span class="swatch-dot" style="background:#${c.hex.toString(16).padStart(6, "0")}"></span>
+      ${c.name}
+    </button>
   `).join("");
 
-  track.innerHTML = html;
+  container.querySelectorAll(".swatch").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const idx = parseInt(btn.dataset.index, 10);
+      window.__setLaptopColor?.(idx);
+      container.querySelectorAll(".swatch").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedColorway = colorways[idx].name;
+    });
+  });
 }
-renderConcepts();
+
+let selectedColorway = colorways[0].name;
+
+// wait a tick for the module to be ready
+requestAnimationFrame(renderSwatches);
 
 // ---------- Email signup (Supabase) ----------
 const SUPABASE_URL = window.__FIZZ_ENV__?.SUPABASE_URL || "";
@@ -45,7 +42,7 @@ form?.addEventListener("submit", async (e) => {
   if (!email) return;
 
   btn.disabled = true;
-  btn.textContent = "Submitting…";
+  btn.textContent = "Reserving…";
   statusEl.textContent = "";
   statusEl.classList.remove("error");
 
@@ -62,7 +59,7 @@ form?.addEventListener("submit", async (e) => {
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
         Prefer: "return=minimal",
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, colorway: selectedColorway }),
     });
 
     if (!res.ok) {
@@ -70,20 +67,20 @@ form?.addEventListener("submit", async (e) => {
       throw new Error(text || "request_failed");
     }
 
-    statusEl.textContent = "You're on the list. We'll be in touch.";
+    statusEl.textContent = `You're reserved for ${selectedColorway}. We'll be in touch.`;
     emailInput.value = "";
   } catch (err) {
     console.error(err);
     if (err.message === "not_configured") {
-      statusEl.textContent = "Signup isn't connected yet — try again soon.";
+      statusEl.textContent = "Reservations aren't connected yet — try again soon.";
     } else if (String(err.message).includes("duplicate")) {
-      statusEl.textContent = "That email's already on the list.";
+      statusEl.textContent = "That email's already reserved.";
     } else {
       statusEl.textContent = "Something went wrong. Please try again.";
       statusEl.classList.add("error");
     }
   } finally {
     btn.disabled = false;
-    btn.textContent = "Notify Me";
+    btn.textContent = "Reserve";
   }
 });
